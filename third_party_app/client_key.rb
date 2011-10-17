@@ -1,0 +1,6 @@
+# encoding: utf-8
+
+CLIENT_ID = "4e9bd3b31d41c8356b000002"
+CLIENT_SECRET = "0e9dd28a657256be2a0e75a28aa61185c4b3af0fb9006579232b58f32d0bf53c"
+MY_DISP_NAME = "HooyaClient-third_party_app"
+APP_PORT = 9294

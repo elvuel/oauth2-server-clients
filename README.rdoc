@@ -1,0 +1,7 @@
+== OAuth2-server clients test
+
+git submodule add git://github.com/elvuel/oauth2-invest oauth2-server
+git submodule init
+git submodule update [--init]
+
+cd oauth2-server && INIT_CLIENTS=true rackup

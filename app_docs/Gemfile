@@ -1,0 +1,11 @@
+source :rubygems
+
+gem 'sinatra', require: "sinatra/base"
+gem 'oauth2'
+gem 'memcache-client'
+gem 'json'
+gem "dm-sqlite-adapter", "~> 1.2.0.rc2"
+gem "dm-core" , "~> 1.2.0.rc2"
+gem "dm-migrations", "~> 1.2.0.rc2"
+gem "dm-is-reflective", "~> 1.0.0"
+gem "pry"
