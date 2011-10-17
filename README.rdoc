@@ -21,4 +21,6 @@ cd third_party_app && rackup
 
 	email: two@test.com	password: two
 	
-	email: three@test.com	password: three	
+	email: three@test.com	password: three
+
+
