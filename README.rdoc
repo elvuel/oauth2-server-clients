@@ -6,7 +6,7 @@ git submodule init
 
 git submodule update [--init]
 
-rm oauth2-server/db/development
+rm oauth2-server/db/development.db
 
 cd oauth2-server && INIT_CLIENTS=true rackup
 
@@ -23,4 +23,4 @@ cd third_party_app && rackup
 	
 	email: three@test.com	password: three
 
-
+simple clients for manual test.
