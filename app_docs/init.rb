@@ -12,6 +12,9 @@ Dir["#{File.dirname(__FILE__)}/models/*.rb"].each do |file|
   require file
 end
 
+
+Bundler.require :test if ENV.fetch("RACK_ENV") == "test"
+
 DataMapper.auto_upgrade!
 
 Document.destroy!

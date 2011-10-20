@@ -19,6 +19,8 @@ class App < Sinatra::Base
   set :public, Proc.new { File.join(root, "public") }
   set :oauth_client, OAuth2::Client.new(CLIENT_ID, CLIENT_SECRET, { :site => 'http://localhost:9292', :token_url => '/oauth/access_token' })
 
+  register Sinatra::RouteGroup
+
   helpers do
     def current_user
       if session[:user_id]
@@ -74,25 +76,25 @@ str << <<-_FORM
     redirect '/'
   end
 
-  get "/needs" do
-    if user_authorized?
+  group(:authorization) do
+    before_filter do
+      redirect '/' unless user_authorized?
+    end
+
+    get "/needs" do
       Need.all.collect do |need|
         "<li>#{need.title}, belongs to user: #{need.user.name}</li>"
       end.join("\n")
-    else
-      "un authorized!"
     end
-  end
 
-  get "/needs/my" do
-    if user_authorized?
+    get "/needs/my" do
       needs = current_user.needs
       needs.collect do |need|
         "<li>#{need.title}, belongs to user: #{need.user.name}</li>"
       end.join("\n")
-    else
-      "un authorized!"
     end
+
   end
+
 
 end

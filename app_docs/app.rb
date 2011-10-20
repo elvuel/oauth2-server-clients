@@ -19,6 +19,8 @@ class App < Sinatra::Base
   set :public, Proc.new { File.join(root, "public") }
   set :oauth_client, OAuth2::Client.new(CLIENT_ID, CLIENT_SECRET, { :site => 'http://localhost:9292', :token_url => '/oauth/access_token' })
 
+  register Sinatra::RouteGroup
+
   helpers do
     def current_user
       if session[:user_id]
@@ -47,6 +49,30 @@ class App < Sinatra::Base
 
   end
 
+  group(:authorization) do
+    before_filter do
+      redirect '/' unless user_authorized?
+    end
+
+    get "/documents" do
+      documents = current_user.documents
+      documents.collect do |document|
+        "<li>#{document.name}, belongs to user: #{document.user.name}</li>"
+      end.join("\n")
+    end
+  end
+
+  group(:tgp) do
+    before_filter do
+      redirect '/' unless params.any?
+    end
+
+    get "/tgp" do
+      "This in TGP! #{params.inspect}"
+    end
+  end
+
+
   get '/' do
     str = <<-_HTML_
 <h3>App info => id: #{CLIENT_ID}, name: #{MY_DISP_NAME}</h3>
@@ -72,18 +98,5 @@ str << <<-_FORM
     session[:user_id] = nil
     redirect '/'
   end
-
-  get "/documents" do
-    if user_authorized?
-      documents = current_user.documents
-      documents.collect do |document|
-        "<li>#{document.name}, belongs to user: #{document.user.name}</li>"
-      end.join("\n")
-    else
-      "un authorized!"
-    end
-  end
-
-
 
 end

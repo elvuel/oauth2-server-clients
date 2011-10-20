@@ -8,4 +8,10 @@ gem "dm-sqlite-adapter", "~> 1.2.0.rc2"
 gem "dm-core" , "~> 1.2.0.rc2"
 gem "dm-migrations", "~> 1.2.0.rc2"
 gem "dm-is-reflective", "~> 1.0.0"
+gem "sinatra-route-group", require: "sinatra/route_group"
 gem "pry"
+
+group :test do
+  gem "rack-test", require: "rack/test"
+  gem "minitest", require: 'minitest/spec'
+end
